@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>ios系统相册选择视频后的处理</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/stylesheets/main.css">
+
+    </head>
+	<body>	
+		<!-- 灰长直 -->
+<nav class="grey-long-straight">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/archives">Archives</a></li>
+    <li><a href="https://github.com/Xummer">Github</a></li>
+    <li><a href="http://weibo.com/xummers/" class="switchable" target="_blank">SinaWeibo</a></li>
+    
+    <li>
+      <form action="http://google.com/search" method="get" target="_blank">
+        <input type="hidden" name="q" value="site:" />
+        <input type="text" name="q" class="search" placeholder="Search" x-webkit-speech />
+      </form>
+    </li>
+    
+  </ul>
+</nav>
+
+		<header class="my-nickname">
+			<em>Xummer
+			 </em>
+		</header>
+		
+
+			<section class="main-wrap clearfix">
+	<article role="article">
+		<h1 class="entry-title">ios系统相册选择视频后的处理</h1>
+		<p class="entry-meta">07 Nov 2012</p>
+
+		<div class="entry-content">
+			<p>最近用GPUImage这个开源类库给视频加滤镜效果，之中有一个从系统相册选择视频的处理的过程。<br>
+调用系统相册（别忘了加这两个协议 <code>&lt;UINavigationControllerDelegate,UIImagePickerControllerDelegate &gt;</code>）</p>
+<div class="highlight"><pre><code class="objc language-objc" data-lang="objc"><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">pushToAlbumView</span> <span class="p">{</span>
+    <span class="n">UIImagePickerController</span><span class="o">*</span> <span class="n">imagePickerController</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIImagePickerController</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+    <span class="n">imagePickerController</span><span class="p">.</span><span class="n">mediaTypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImagePickerController</span> <span class="n">availableMediaTypesForSourceType</span><span class="o">:</span><span class="n">UIImagePickerControllerSourceTypeSavedPhotosAlbum</span><span class="p">];</span>
+    <span class="n">imagePickerController</span><span class="p">.</span><span class="n">sourceType</span> <span class="o">=</span> <span class="n">UIImagePickerControllerSourceTypeSavedPhotosAlbum</span><span class="p">;</span>
+    <span class="n">imagePickerController</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+    <span class="c1">//    imagePickerController.videoQuality = UIImagePickerControllerQualityTypeHigh;</span>
+    <span class="c1">//    imagePickerController.allowsEditing = YES;</span>
+    <span class="p">[</span><span class="n">self</span> <span class="n">presentViewController</span><span class="o">:</span><span class="n">imagePickerController</span> <span class="n">animated</span><span class="o">:</span><span class="n">YEScompletion</span><span class="o">:</span><span class="nb">NULL</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>在实际过程中发现,在选择视频后会有一个视频压缩的问题(模拟器上编译通不过，需要真机测试)。
+<img src="/images/blog-images/2012-11-07/videoCompress.png" alt="">   </p>
+<div class="highlight"><pre><code class="objc language-objc" data-lang="objc"><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">imagePickerController:</span><span class="p">(</span><span class="n">UIImagePickerController</span> <span class="o">*</span><span class="p">)</span><span class="nv">picker</span> <span class="nf">didFinishPickingMediaWithInfo:</span><span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">info</span>
+</code></pre></div>
+<p>而是在这之前，目前并没有找到具体在哪里调用，具体压缩消耗的时间和视频的本身大小有关。</p>
+
+<p>而在压缩完之后想要推出一个模态视图<code>ModalViewController</code> ，必须将当前的<code>ModalViewController</code> dismiss掉然后再新推一个<code>ModalViewController</code>，但是问题是不知道何时会压缩处理完，在当前的<code>ModalViewController</code> 消失掉之前推出一个<code>ModalViewController</code>，就会crash。</p>
+
+<p>找了半天关于视频压缩的，还是没有找到答案，在<code>ModalViewController</code>中找到了解决方法，（只支持5.0及以后的系统）在block中设置一个回调块，在这个块中推出一个新的<code>ModalViewController</code>。</p>
+<div class="highlight"><pre><code class="objc language-objc" data-lang="objc"><span class="c1">// The completion handler, if provided, will be invoked after the dismissed controller&#39;s viewDidDisappear: callback is invoked.</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">dismissViewControllerAnimated:</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">flag</span> <span class="nf">completion:</span> <span class="p">(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="kt">void</span><span class="p">))</span><span class="nv">completion</span> <span class="n">NS_AVAILABLE_IOS</span><span class="p">(</span><span class="mi">5</span><span class="n">_0</span><span class="p">);</span>
+</code></pre></div>
+<p>具体如下  </p>
+<div class="highlight"><pre><code class="objc language-objc" data-lang="objc"><span class="p">[</span><span class="n">picker</span> <span class="n">dismissViewControllerAnimated</span><span class="o">:</span><span class="nb">YES</span> <span class="n">completion</span><span class="o">:^</span><span class="p">(</span><span class="kt">void</span><span class="p">){</span>
+    <span class="n">UIViewController</span> <span class="o">*</span><span class="n">PVC</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIViewController</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">self</span> <span class="n">presentViewController</span><span class="o">:</span><span class="n">PVC</span> <span class="n">animated</span><span class="o">:</span><span class="nb">YES</span> <span class="n">completion</span><span class="o">:</span><span class="nb">NULL</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">PVC</span> <span class="n">release</span><span class="p">];</span>
+<span class="p">}];</span>
+</code></pre></div>
+		</div>
+
+		<footer>
+			<p class="meta neighbor clearfix">
+				
+				<a href="/blog/hello-word.html" class="basic-alignment left" title="Previous Post: Hello Word">&laquo; Hello Word</a>
+				
+				
+				<a href="/blog/custom-view-from-nib.html" class="basic-alignment right" title="Next Post: 从nib初始化自定义view">从nib初始化自定义view &raquo;</a>
+				
+			</p>
+		</footer>
+	</article>
+
+	
+<div class="ds-thread" data-title="ios系统相册选择视频后的处理" data-image="http://tp3.sinaimg.cn/1649383490/180/5600400876/1"></div>
+<script>var duoshuoQuery = { short_name: 'xummer' }</script>
+<script src="http://static.duoshuo.com/embed.js" async="async"></script>
+
+
+</section>
+
+
+		
+
+    </body>
+	<footer class="footer">
+		<span>&copy;Xummer, Since 1990.</span>
+		<i>|</i>
+		Powered by <a href="http://jekyllrb.com/" target="_blank">Jekyll</a>
+	</footer>
+</html>

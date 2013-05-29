@@ -3,7 +3,7 @@
 @import 'base/reset', 'font-faces';
 
 $line-height-half: $font-size-base * $line-height-base / 2;
-$page-width: 860px;
+$page-width: 780px;
 
 @mixin title-style-size($size) {
 	font: {

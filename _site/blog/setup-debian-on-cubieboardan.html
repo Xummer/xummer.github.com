@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Cubieboard安装Debian</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/stylesheets/main.css">
+
+    </head>
+	<body>	
+		<!-- 灰长直 -->
+<nav class="grey-long-straight">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/archives">Archives</a></li>
+    <li><a href="https://github.com/Xummer">Github</a></li>
+    <li><a href="http://weibo.com/xummers/" class="switchable" target="_blank">SinaWeibo</a></li>
+    
+    <li>
+      <form action="http://google.com/search" method="get" target="_blank">
+        <input type="hidden" name="q" value="site:" />
+        <input type="text" name="q" class="search" placeholder="Search" x-webkit-speech />
+      </form>
+    </li>
+    
+  </ul>
+</nav>
+
+		<header class="my-nickname">
+			<em>Xummer
+			 </em>
+		</header>
+		
+
+			<section class="main-wrap clearfix">
+	<article role="article">
+		<h1 class="entry-title">Cubieboard安装Debian</h1>
+		<p class="entry-meta">13 May 2013</p>
+
+		<div class="entry-content">
+			<p>最近买了个cubieboard打算弄个lnmp折腾折腾。<br>
+网上关于cubieboard的资料不是很多，不过花时间找一下也是有很好的文章的。本文中的折腾都是基于<a href="http://guillaumeplayground.net/share/debian_wheezy_armhf_v1_mele.img.gz">debian<em>wheezy</em>armhf<em>v1</em>mele.img</a>(MD5: ccdc08dd71bdd927f168b29fc2f8e83e).<br>
+感谢大神提供img，虽然还不清楚img的原理是什么or2。    </p>
+
+<h2>参考资料</h2>
+
+<p>下面就是我折腾中参考的资料：<br>
+1.  <a href="http://blog.newhi.net/?post=31">CubieBoard 开发板系统安装</a><br>
+--基本上各种命令都有列出。<br>
+2.  <a href="http://www.enjoyself.net/index.php/archives/10.html">为Cubieboard打造完美Debian系统</a><br>
+ --博主写的都比较清楚<br>
+3.  <a href="http://blog.sina.com.cn/s/blog_7c4badb70101cwnc.html">在16G TF卡安装cubie-server-t4镜像,使用全部可用空间</a><br>
+ --内容有用，排版有些乱，不过我也折腾了好久（大概是应为对linux命令不够熟吧 orz）<br>
+4.  <a href="http://cb.e-fly.org/archives/23.html">Cubieboard 下安装配置优化LNMP环境</a><br>
+-- 确实很nice<br>
+5.  <a href="http://blog.newhi.net/?post=164">安装CubieBoard最小系统 交叉编译</a><br>
+ --先码者，有时间再折腾</p>
+
+<h2>Linux知识点</h2>
+
+<p>1.解压 tar.gz</p>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash"><span class="nv">$ </span>tar -xzf  xxxx.tar.gz
+</code></pre></div>
+<p>2.取消挂载</p>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash"><span class="nv">$ </span>umount /media/* 
+</code></pre></div>
+<p>3.fdisk分区  -- 具体可以看下<a href="http://www.liusuping.com/ubuntu-linux/linux-fdisk-disk.html">fdisk的使用</a></p>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash"><span class="nv">$ </span>fdisk /dev/mmcblk0 
+</code></pre></div>
+<p>4.TF卡识别<br>
+可能识别为：<br>
+<strong>I</strong>  硬盘格式  <code>/dev/sdb</code>    （用外接读卡器插usb）<br>
+<strong>II</strong> SD卡格式 <code>/dev/mmcblk0</code> （直接插pc自带的SD卡读卡器）<br>
+两中分区分别为<br>
+<code>/dev/sdb1</code> 第一分区 <code>/dev/sdb2</code> 第二分区 ...<br>
+<code>/dev/mmcblk0p1</code> 第一分区 <code>/dev/mmcblk0p2</code> 第二分区 ...  </p>
+
+<p>5.查看TF卡信息   </p>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash"><span class="nv">$ </span>ls /dev/mmcblk0* 
+</code></pre></div>
+<p>输出：  </p>
+
+<blockquote>
+<p>/dev/mmcblk0 /dev/mmcblk0p1 </p>
+</blockquote>
+
+<p>6.查看TF卡分区</p>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash"><span class="nv">$ </span>fdisk -l /dev/mmcblk0  
+</code></pre></div>
+<p>也可以用  </p>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash"><span class="nv">$ </span>fdisk  /dev/mmcblk0
+</code></pre></div>
+<p>然后再输入 <code>p</code> 就可以了 退出时输入<code>q</code>（退出不保存）<br>
+输出：                      </p>
+
+<blockquote>
+<p>Disk /dev/mmcblk0: 15.9 GB, 15931539456 bytes<br>
+  4 heads, 16 sectors/track, 486192 cylinders, total 31116288 sectors<br>
+  Units = sectors of 1 * 512 = 512 bytes<br>
+  Sector size (logical/physical): 512 bytes / 512 bytes<br>
+  I/O size (minimum/optimal): 512 bytes / 512 bytes<br>
+  Disk identifier: 0x00000000     </p>
+
+<p>Device Boot Start End Blocks Id System<br>
+  /dev/mmcblk0p1 2048 34815 16384 c W95 FAT32 (LBA)<br>
+  /dev/mmcblk0p2 34816 31116287 15540736 83 Linux     </p>
+</blockquote>
+
+<p>7.写入img到tf卡 </p>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash"><span class="nv">$ </span>dd <span class="k">if</span><span class="o">=</span>&lt;img 路径&gt; <span class="nv">of</span><span class="o">=</span>/dev/&lt;MMC_DEVICE&gt; <span class="nv">bs</span><span class="o">=</span>1M
+</code></pre></div>
+<p><a href="http://zh.wikipedia.org/wiki/%E5%A4%9A%E5%AA%92%E9%AB%94%E8%A8%98%E6%86%B6%E5%8D%A1">MMC</a>_DEVICE也就是TF卡的路径</p>
+
+<p>8.使Debian支持1G内存，并解决关机后无法按电源键开机启动的问题<br>
+将<a href="http://www.enjoyself.net/usr/uploads/2013/05/Debian.zip">sunxi-bootloader</a>中的u-boot.bin 、sunxi-spl.bin文件写入到SD卡bootloader  </p>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash"><span class="nv">$ </span>dd <span class="k">if</span><span class="o">=</span>sunxi-spl.bin <span class="nv">of</span><span class="o">=</span>/dev/mmcblk0 <span class="nv">bs</span><span class="o">=</span>1024 <span class="nv">seek</span><span class="o">=</span>8
+<span class="nv">$ </span>dd <span class="k">if</span><span class="o">=</span>u-boot.bin <span class="nv">of</span><span class="o">=</span>/dev/mmcblk0 <span class="nv">bs</span><span class="o">=</span>1024 <span class="nv">seek</span><span class="o">=</span>32  
+</code></pre></div>
+<p>在cubieboard中 可以用 <code>free -m</code> 来查看其上的内存</p>
+
+<p>9.用img刷写后调整 TF卡剩余空间，使其全部可用<br>
+<strong>需要输入的命令全部用 code标出，如：</strong></p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text"> /* 我是需要输入的命令 */
+</code></pre></div>
+<p>刷写img后在linux上操作 （需要root权限 或者 （unbuntu）加sudo）</p>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash"><span class="nv">$ </span>umount /media/*               //解除所有挂载 
+<span class="nv">$ </span>fdisk /dev/mmcblk0            // 这里/dev/mmcblk0可能是/<span class="nv">$ </span>dev/sdb 要看TF卡读出来是什么了 看第4点
+</code></pre></div>
+<blockquote>
+<p>Command (m for help): </p>
+</blockquote>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">    p         // 输入p，列出磁盘目前的分区情况
+</code></pre></div>
+<blockquote>
+<p>以下是我已经分好的数据 一开始刷写的没有31116287这么多，大概只有516287左右<br>
+   Disk /dev/mmcblk0: 15.9 GB, 15931539456 bytes<br>
+   4 heads, 16 sectors/track, 486192 cylinders, total 31116288 sectors<br>
+   Units = sectors of 1 * 512 = 512 bytes<br>
+   Sector size (logical/physical): 512 bytes / 512 bytes<br>
+   I/O size (minimum/optimal): 512 bytes / 512 bytes<br>
+   Disk identifier: 0x0003478c<br>
+   Device Boot       Start              End             Blocks      Id    System
+   /dev/mmcblk0p1      2048          30719         14336       c     W95 FAT32 (LBA)<br>
+   /dev/mmcblk0p2    30720    31116287   15542784     83     Linux<br>
+   Command (m for help):</p>
+</blockquote>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">    d         //输入d，然后选择分区，删除第2分区
+</code></pre></div>
+<blockquote>
+<p>Partition number (1-4):</p>
+</blockquote>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">    2
+</code></pre></div>
+<blockquote>
+<p>Command (m for help):</p>
+</blockquote>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">    p         // 输入p，确认分区已经删除
+</code></pre></div>
+<blockquote>
+<p>Disk /dev/mmcblk0: 15.9 GB, 15931539456 bytes<br>
+  4 heads, 16 sectors/track, 486192 cylinders, total 31116288 sectors<br>
+  Units = sectors of 1 * 512 = 512 bytes<br>
+  Sector size (logical/physical): 512 bytes / 512 bytes<br>
+  I/O size (minimum/optimal): 512 bytes / 512 bytes<br>
+  Disk identifier: 0x0003478c<br>
+  Device Boot       Start              End         Blocks      Id    System<br>
+  /dev/mmcblk0p1      2048          30719         14336       c     W95 FAT32 (LBA)<br>
+  Command (m for help):</p>
+</blockquote>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">    n         // 输入n，重建第2分区
+</code></pre></div>
+<blockquote>
+<p>Command action<br>
+  e extended<br>
+  p primary partition (1-4)</p>
+</blockquote>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">    p           //建立主分区
+</code></pre></div>
+<blockquote>
+<p>Partition number (1-4): </p>
+</blockquote>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">    2          //分区号
+</code></pre></div>
+<blockquote>
+<p>First cylinder (30720-31116287, default 30720):  //分区起始位置  直接回车<br>
+Using default value 30720<br>
+Last cylinder or +size or +sizeM or +sizeK (30720-31116287, default 31116287):  //分区结束位置，单位为扇区  直接回车<br>
+Using default value 31116287<br>
+Command (m for help):  </p>
+</blockquote>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">    p         // 输入p，确认第2分区已经分配
+</code></pre></div>
+<blockquote>
+<p>Disk /dev/mmcblk0: 15.9 GB, 15931539456 bytes<br>
+  4 heads, 16 sectors/track, 486192 cylinders, total 31116288 sectors<br>
+  Units = sectors of 1 * 512 = 512 bytes<br>
+  Sector size (logical/physical): 512 bytes / 512 bytes<br>
+  I/O size (minimum/optimal): 512 bytes / 512 bytes<br>
+  Disk identifier: 0x0003478c<br>
+  Device Boot       Start              End         Blocks      Id    System<br>
+  /dev/mmcblk0p1      2048          30719         14336       c     W95 FAT32 (LBA)<br>
+  /dev/mmcblk0p2    30720    31116287   15542784     83     Linux</p>
+</blockquote>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">e2fsck -f  /dev/mmcblk0p2      //检查第二分区
+resize2fs /dev/sdb2            //重新分配第二分区大小
+df -h                          //查看下当前的分区大小
+</code></pre></div>
+		</div>
+
+		<footer>
+			<p class="meta neighbor clearfix">
+				
+				<a href="/blog/cube-animation.html" class="basic-alignment left" title="Previous Post: 使用 CATransaction flush设置cube动画的两个面">&laquo; 使用 CATransaction flush设置cube动画的两个面</a>
+				
+				
+				<a href="/blog/image-lose-exif-after-redraw.html" class="basic-alignment right" title="Next Post: 图片压缩后原有旋转信息丢失">图片压缩后原有旋转信息丢失 &raquo;</a>
+				
+			</p>
+		</footer>
+	</article>
+
+	
+<div class="ds-thread" data-title="Cubieboard安装Debian" data-image="http://tp3.sinaimg.cn/1649383490/180/5600400876/1"></div>
+<script>var duoshuoQuery = { short_name: 'xummer' }</script>
+<script src="http://static.duoshuo.com/embed.js" async="async"></script>
+
+
+</section>
+
+
+		
+
+    </body>
+	<footer class="footer">
+		<span>&copy;Xummer, Since 1990.</span>
+		<i>|</i>
+		Powered by <a href="http://jekyllrb.com/" target="_blank">Jekyll</a>
+	</footer>
+</html>
