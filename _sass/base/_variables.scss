@@ -1,0 +1,43 @@
+// Brand colors
+$brand-dark-grey:           #333;
+$brand-grey:                #555;
+$brand-light-grey:          #999;
+$brand-red:                 #bd2c00;
+$brand-orange:              #f93;
+$brand-blue:                #4183c4;
+$brand-green:               #6cc644;
+
+// Typography
+$font-family-sans-serif:    'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-family-monospace:     Monaco, Menlo, Consolas, 'Courier New', monospace;
+$font-family-base:          $font-family-sans-serif !default;
+
+$font-size-base:            16px !default;
+$font-size-large:           round($font-size-base * 1.25) !default;
+$font-size-small:           round($font-size-base * 0.85) !default;
+
+$line-height-base:          1.75 !default;
+
+$text-color:                $brand-dark-grey !default;
+$link-color:                $brand-blue !default;
+$link-hover-color:          darken($link-color, 15%) !default;
+
+// Forms
+$input-placeholder-color:   $brand-light-grey !default;
+
+// Form states and alerts
+$state-warning-text:        #c09853;
+$state-warning-bg:          #fcf8e3;
+$state-warning-border:      darken(adjust-hue($state-warning-bg, -10), 3%);
+
+$state-danger-text:         #b94a48;
+$state-danger-bg:           #f2dede;
+$state-danger-border:       darken(adjust-hue($state-danger-bg, -10), 3%);
+
+$state-success-text:        #468847;
+$state-success-bg:          #dff0d8;
+$state-success-border:      darken(adjust-hue($state-success-bg, -10), 5%);
+
+$state-info-text:           #3a87ad;
+$state-info-bg:             #d9edf7;
+$state-info-border:         darken(adjust-hue($state-info-bg, -10), 7%);

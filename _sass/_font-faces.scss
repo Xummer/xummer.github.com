@@ -1,0 +1,7 @@
+$includes: woff ttf;
+
+// .entry-title
+@include fonts(typewriter, typewriter, $includes);
+
+// code
+@include fonts(consola, consola, $includes);

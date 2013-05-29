@@ -1,0 +1,35 @@
+# ---------------------- #
+#      Site Configs      #
+# ---------------------- #
+
+name: Xummer
+author: Xummer
+# pygments: true
+permalink: /blog/:title.html
+paginate: 10
+paginate_path: /page/:num
+
+# ---------------------- #
+#         Jekyll         #
+# ---------------------- #
+
+safe: true
+markdown: redcarpet
+exclude: ['Gemfile', 'Gemfile.lock']
+
+# ---------------------- #
+#      Compile Sass      #
+# ---------------------- #
+
+no_line_comments: true
+sass_dir: _sass
+fonts_dir: fonts
+output_style: compressed
+
+# ---------------------- #
+#    Social Networks     #
+# ---------------------- #
+
+#duoshuo comments
+duoshuo: xummer
+simple_search: http://google.com/search

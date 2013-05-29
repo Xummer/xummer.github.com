@@ -1,0 +1,17 @@
+<!-- 灰长直 -->
+<nav class="grey-long-straight">
+  <ul>
+    <li><a href="{{ root_url }}/">Home</a></li>
+    <li><a href="/archives">Archives</a></li>
+    <li><a href="https://github.com/Xummer">Github</a></li>
+    <li><a href="http://weibo.com/xummers/" class="switchable" target="_blank">SinaWeibo</a></li>
+    {% if site.simple_search %}
+    <li>
+      <form action="{{ site.simple_search }}" method="get" target="_blank">
+        <input type="hidden" name="q" value="site:{{ site.url | shorthand_url }}" />
+        <input type="text" name="q" class="search" placeholder="Search" x-webkit-speech />
+      </form>
+    </li>
+    {% endif %}
+  </ul>
+</nav>

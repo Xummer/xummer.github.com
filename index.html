@@ -1,0 +1,19 @@
+---
+layout: default
+title: Xummer
+isHome: true
+---
+
+<ul class="entry-list">
+	{% for post in site.posts %}
+    <li>
+		<h2 class="entry-title">
+			<a href="{{ post.url }}">{{ post.title }}</a>
+		</h2>
+		<p class="entry-meta">
+			<span>{{ post.date | date_to_string }}</span>
+		</p>
+	</li>
+    {% endfor %}
+</ul>
+
