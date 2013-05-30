@@ -6,7 +6,7 @@ meta: true
 ---
 最近买了个cubieboard打算弄个lnmp折腾折腾。   
 网上关于cubieboard的资料不是很多，不过花时间找一下也是有很好的文章的。本文中的折腾都是基于[debian_wheezy_armhf_v1_mele.img](http://guillaumeplayground.net/share/debian_wheezy_armhf_v1_mele.img.gz)(MD5: ccdc08dd71bdd927f168b29fc2f8e83e).  
-感谢大神提供img，虽然还不清楚img的原理是什么or2。    
+感谢大神提供img，<del>虽然还不清楚img的原理是什么or2</del> [img](http://zh.wikipedia.org/zh/IMG%E6%A0%BC%E5%BC%8F)其实也就是一种归档格式，类似.iso。    
 
 ##参考资料
 下面就是我折腾中参考的资料：   
