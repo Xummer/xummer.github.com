@@ -1,6 +1,6 @@
 #!/bin/sh
 
-postDir="./_post/"
+postDir="./_posts/"
 postName=$(date +"%Y-%m-%d")"-"$(echo $1 | tr ' ' '-')".md"
 postPath=${postDir}${postName}
 
