@@ -25,7 +25,7 @@ meta: ture
 ###3.plist
 需要修改ipa具体的路径和bundle identifier(见下图)，其他可改可不改。  
 
-![](/images/blog-images2013-08-29/ipaWebDownloadPlist.png)  
+![](/images/blog-images/2013-08-29/ipaWebDownloadPlist.png)  
 	   
 [app.plist 下载地址](http://pan.baidu.com/share/link?shareid=698052472&uk=2885859734)
   
