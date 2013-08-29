@@ -1,5 +1,10 @@
 #!/bin/sh
 
+if [ -z "$1" ]; then
+	echo " no parameter ! "
+	exit 1
+fi
+
 postDir="./_posts/"
 postName=$(date +"%Y-%m-%d")"-"$(echo $1 | tr ' ' '-')".md"
 postPath=${postDir}${postName}
@@ -12,6 +17,7 @@ if [ ! -f $postPath ]; then
 	echo "date: `date '+%Y-%m-%d %T'`">>$postPath
 	echo 'meta: ture'>>$postPath
 	echo '---'>>$postPath
+	echo "created new post <$postName> in $postPath"
 else
 	echo "$postPath is already exist"
 	exit 0
