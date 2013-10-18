@@ -6,6 +6,9 @@ meta: ture
 ---
 最近都用企业版证书发布ipa，不用上appstore，不用审核也省了不少时间。记录下具体的网页安装ipa的方法，不只是企业版证书，越狱后的机器也可以通过这种方式来安装ipa。
   
+
+##Apple官方文档
+[传送门](http://help.apple.com/iosdeployment-apps/mac/1.1/#app43ad871e)
 ##准备
 总共需要准备3样东西，ipa、html和plist。
 
