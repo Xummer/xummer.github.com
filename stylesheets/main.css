@@ -674,3 +674,8 @@ article .neighbor {
     opacity: 1;
   }
 }
+
+/* line 366, ../_sass/main.scss */
+.MathJax_Display {
+  text-align: left !important;
+}
