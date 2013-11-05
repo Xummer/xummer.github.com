@@ -11,13 +11,7 @@ postPath=${postDir}${postName}
 
 if [ ! -f $postPath ]; then
 	touch $postPath
-	echo '---'>>$postPath
-	echo 'layout: post'>>$postPath
-	echo "title: "$1"">>$postPath
-	echo "date: `date '+%Y-%m-%d %T'`">>$postPath
-	echo 'meta: ture'>>$postPath
-	echo '---'>>$postPath
-        echo '-以上-'>>$postPath
+        echo '---\n''layout: post\n'"title: "$1"\n""date: `date '+%Y-%m-%d %    T'`\n"'meta: ture\n''---\n\n\n''-以上-'>>$postPath
 	echo "created new post <$postName> in $postPath"
 else
 	echo "$postPath is already exist"
