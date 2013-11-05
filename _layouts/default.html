@@ -9,11 +9,10 @@
         <!-- Custom CSS -->
         <link rel="stylesheet" href="/stylesheets/main.css">
 
-        <!-- MathJax -->
         {% include mathJax.html %}
 
     </head>
-	<body>	
+    <body>	
 		{% include grey-long-straight.html %}
 		<header class="my-nickname">
 			<em>{{ site.name }}
@@ -30,10 +29,5 @@
 		{% endif %}
 
     </body>
-	<footer class="footer">
-		<span>&copy;{{ site.author }}, Since 1990.</span>
-		<i>|</i>
-		Powered by <a href="http://jekyllrb.com/" target="_blank">Jekyll</a>
-                <i>|   </i>{% include analysis.html %}
-	</footer>
+    {% include copyright.html %}
 </html>

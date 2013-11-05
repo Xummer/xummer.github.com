@@ -82,6 +82,19 @@ blockquote {
 	color: #777;
 }
 
+.home-title {
+        @include title-style-size(32px);
+        padding-top: 5px;
+}
+
+.home-gap {
+        padding-top: 16px;
+}
+
+.read-more {
+        text-align: right;
+}
+
 .entry-title {
 	@include title-style-size(32px);
 }
@@ -205,7 +218,7 @@ article {
 }
 
 .meta {
-	font-size: $font-size-small;
+    font-size: $font-size-small;
     height: 16px;
     padding: 0 5px;
     margin: auto;
@@ -321,6 +334,11 @@ article {
 	}
 }
 
+// MathJax 左对齐
+.MathJax_Display {
+	text-align: left !important;
+}
+
 // cancel animation on iPad
 @media screen and (max-device-width: 1024px) {
 	.my-nickname em {
@@ -362,7 +380,3 @@ article {
 	}
 }
 
-// MathJax 左对齐
-.MathJax_Display {
-	text-align: left !important;
-}

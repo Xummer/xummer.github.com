@@ -6,14 +6,21 @@ isHome: true
 
 <ul class="entry-list">
 	{% for post in site.posts %}
-    <li>
-		<h2 class="entry-title">
+        <li class="home-gap">
+		<h2 class="home-title">
 			<a href="{{ post.url }}">{{ post.title }}</a>
 		</h2>
 		<p class="entry-meta">
 			<span>{{ post.date | date_to_string }}</span>
 		</p>
+                <article>
+                  {% assign fragments = post.content | split: site.excerpt_separator %}
+                  {% assign size = fragments | size %}
+                  
+                  {{ fragments | first }}
+                  {% if size > 1 %}<p class="read-more"><a href="{{ post.url }}" target="_self">>></a></p>{% endif %}
+                </article>
 	</li>
-    {% endfor %}
+        {% endfor %}
 </ul>
 
