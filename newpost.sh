@@ -17,6 +17,7 @@ if [ ! -f $postPath ]; then
 	echo "date: `date '+%Y-%m-%d %T'`">>$postPath
 	echo 'meta: ture'>>$postPath
 	echo '---'>>$postPath
+        echo '-以上-'>>$postPath
 	echo "created new post <$postName> in $postPath"
 else
 	echo "$postPath is already exist"
