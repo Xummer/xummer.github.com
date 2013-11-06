@@ -652,60 +652,55 @@ article .neighbor {
   -moz-animation: Open 1.5s ease-out forwards, Show 3.5s forwards;
 }
 
-/* line 338, ../_sass/main.scss */
-.MathJax_Display {
-  text-align: left !important;
-}
-
 @media screen and (max-device-width: 1024px) {
-  /* line 344, ../_sass/main.scss */
+  /* line 339, ../_sass/main.scss */
   .my-nickname em {
     -webkit-animation: none, none;
   }
 }
 @-webkit-keyframes Open {
-  /* line 350, ../_sass/main.scss */
+  /* line 345, ../_sass/main.scss */
   0%, 66% {
     width: 0;
   }
 
-  /* line 353, ../_sass/main.scss */
+  /* line 348, ../_sass/main.scss */
   100% {
     width: 400px;
   }
 }
 
 @-moz-keyframes Open {
-  /* line 358, ../_sass/main.scss */
+  /* line 353, ../_sass/main.scss */
   0%, 66% {
     width: 0;
   }
 
-  /* line 361, ../_sass/main.scss */
+  /* line 356, ../_sass/main.scss */
   100% {
     width: 400px;
   }
 }
 
 @-webkit-keyframes Show {
-  /* line 367, ../_sass/main.scss */
+  /* line 362, ../_sass/main.scss */
   0%, 40% {
     opacity: 0;
   }
 
-  /* line 370, ../_sass/main.scss */
+  /* line 365, ../_sass/main.scss */
   100% {
     opacity: 1;
   }
 }
 
 @-moz-keyframes Show {
-  /* line 375, ../_sass/main.scss */
+  /* line 370, ../_sass/main.scss */
   0%, 40% {
     opacity: 0;
   }
 
-  /* line 378, ../_sass/main.scss */
+  /* line 373, ../_sass/main.scss */
   100% {
     opacity: 1;
   }
