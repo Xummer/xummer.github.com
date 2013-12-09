@@ -73,6 +73,8 @@ struct CGAffineTransform {
 
 虽然结构体中只有`a`,`b`,`c`,`d`,`tx`,`ty` 6个参数，但其实还有3个固定的参数[0,0,1]来组成3x3的矩阵。
 
+PS:anchorPoint定义了应用变换的坐标系的原点。
+
 仿射变换表示为一个3x3的矩阵如下:
 $$
 \begin{bmatrix}
@@ -253,7 +255,7 @@ y' &= r \sin (\theta + \alpha) \\\\
 $$
 
 
-**`CGAffineTransformMakeRotation`方法用来计算出原来点(x,y)旋转α°之后的(x',y')，即将原来的旋转α°。**
+**`CGAffineTransformMakeRotation`方法用来计算出原来点(x,y)旋转α°之后的(x',y')，即将原来的旋转α°。也就是将view或者layer以anchorPoint为中心点旋转α°**
 
 ##胡乱吐槽
 数学真的是很奇妙的东西，矩阵虽然不明白这是如何抽象出来的，但是觉得很厉害的样子。Google了一些资料，还是云里雾里的，只能感叹其中的精妙了。
