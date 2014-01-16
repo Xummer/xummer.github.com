@@ -27,4 +27,9 @@ iOS 7 和 xcode 5 发布也有一段时间了，各种程序也已经开始做io
 
 ![](../images/blog-images/2013-12-02/base_sdk.png)
 
+---
+2014.01.14更新   
+的邮件不让6.1编译的在2014年2月1日就不让上线了，没上线的赶紧上线，以后要改还必须做ios7的适配了。
+![](../images/blog-images/2013-12-02/submitted_denied.png)
+
 -以上-
