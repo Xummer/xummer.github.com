@@ -35,7 +35,7 @@ Mac启动和关闭可以很方便的用system preferance中的MySQL选项
 然后把路径导入环境
 
 ```
-$ echo 'export PATH=/bin/sh /usr/local/mysql/bin/:$PATH' >> ~/.bash_profile
+$ echo 'export PATH=/usr/local/mysql/bin/:$PATH' >> ~/.bash_profile
 ```
 然后重开个terminal就能使用mysql之类的命令了。
 
