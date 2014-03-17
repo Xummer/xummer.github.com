@@ -57,7 +57,7 @@ Apple LLVM version 5.1 (clang-503.0.38) (based on LLVM 3.4svn)
 Target: x86_64-apple-darwin13.1.0
 Thread model: posix
 
-gcc --version
+$ gcc --version
 Configured with: --prefix=/Applications/Xcode.app/Contents/Developer/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
 Apple LLVM version 5.1 (clang-503.0.38) (based on LLVM 3.4svn)
 Target: x86_64-apple-darwin13.1.0
@@ -85,6 +85,7 @@ Python 2.7.5
 MySQLdb1.2.4 
 ```
 Mac mini一直报错 
+
 ```
 clang: error: unknown argument: '-mno-fused-madd' [-Wunused-command-line-argument-hard-error-in-future]
 ```
@@ -92,13 +93,14 @@ clang: error: unknown argument: '-mno-fused-madd' [-Wunused-command-line-argumen
 除了换cc这种脏的做法，暂时无解。
 
 下面的两种方法，都无法解决。
+
 ```
-ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future python setup.py install
+$ ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future python setup.py install
 ```
 
 ```
-export CFLAGS=-Qunused-arguments
-export CPPFLAGS=-Qunused-arguments
+$ export CFLAGS=-Qunused-arguments
+$ export CPPFLAGS=-Qunused-arguments
 ```
 ![](../images/blog-images/2014-03-15/so_clang5.1.png)
 
@@ -139,7 +141,7 @@ ImportError: dlopen(/Library/Frameworks/Python.framework/Versions/2.7/lib/python
 建立个软连接就解决了。
 
 ```
-sudo ln -s /usr/local/mysql/lib/libmysqlclient.18.dylib /usr/lib/libmysqlclient.18.dylib
+$ sudo ln -s /usr/local/mysql/lib/libmysqlclient.18.dylib /usr/lib/libmysqlclient.18.dylib
 ```
 
 -以上-
