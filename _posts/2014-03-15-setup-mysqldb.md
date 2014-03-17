@@ -5,7 +5,7 @@ date: 2014-03-15     T
 meta: ture
 ---
 
-终于解决`MySQLdb`模块的安装了，坑了我快2天了。
+终于解决`MySQLdb`模块的安装了，坑了我快2天了。好吧，又坑了一天（0317）。'Python MySQLdb'各种坑，google后发现被坑的人不在少数，跨平台也不是这么好跨的。
 
 ###1.MAMP的MySQL不支持
 
@@ -49,15 +49,64 @@ $ which mysql
 clang: error: unknown argument: '-mno-fused-madd' [-Wunused-command-line-argument-hard-error-in-future]
 clang: note: this will be a hard error (cannot be downgraded to a warning) in the future
 ```
-`-mno-fused-madd`是gcc的参数，升级的后clang没有... （MySQLdb1.2.5版本）
+`-mno-fused-madd`是gcc的参数，升级的后clang没有... （MySQLdb1.2.5版本, python 2.7.5）
 
+```
+$ cc --version
+Apple LLVM version 5.1 (clang-503.0.38) (based on LLVM 3.4svn)
+Target: x86_64-apple-darwin13.1.0
+Thread model: posix
+
+gcc --version
+Configured with: --prefix=/Applications/Xcode.app/Contents/Developer/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+Apple LLVM version 5.1 (clang-503.0.38) (based on LLVM 3.4svn)
+Target: x86_64-apple-darwin13.1.0
+Thread model: posix
+```
+
+两个环境
+
+```
+MBA
+OSX 10.9.2
+Xcode 5.1
+Apple LLVM version 5.1 (clang-503.0.38) (based on LLVM 3.4svn)
+Python 2.7.3
+MySQLdb1.2.4 
+```
+MBA编译一次过，没有出现`-mno-fused-madd`问题。
+
+```
+Mac mini
+OSX 10.9.2
+Xcode 5.1
+Apple LLVM version 5.1 (clang-503.0.38) (based on LLVM 3.4svn)
+Python 2.7.5
+MySQLdb1.2.4 
+```
+Mac mini一直报错 
+```
+clang: error: unknown argument: '-mno-fused-madd' [-Wunused-command-line-argument-hard-error-in-future]
+```
+
+除了换cc这种脏的做法，暂时无解。
+
+下面的两种方法，都无法解决。
 ```
 ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future python setup.py install
 ```
 
+```
+export CFLAGS=-Qunused-arguments
+export CPPFLAGS=-Qunused-arguments
+```
+![](../images/blog-images/2014-03-15/so_clang5.1.png)
+
+
+
 ###3.dylib未找到
 
-后来才发现有[很具体的安装和问题的解决文章](http://blog.chinaunix.net/uid-8487640-id-3183185.html)，大部分问题上面都有清楚的解释。
+后来才发现有[很具体的安装和问题的解决文章](http://blog.chinaunix.net/uid-8487640-id-3183185.html)和[SO上更全面的英文版](http://stackoverflow.com/questions/1448429/how-to-install-mysqldb-python-data-access-library-to-mysql-on-mac-os-x)，大部分问题上面都有清楚的解释。
 
 >可能碰到的问题  
 1）问题：ImportError: libmysqlclient_r.so.16: cannot open shared object file: No such file or directory  
