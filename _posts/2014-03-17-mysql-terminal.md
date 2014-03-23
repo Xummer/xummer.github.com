@@ -294,5 +294,32 @@ Database: test
 ```
 - mysqladmin 创建和维护MySQL数据库的命令
 
+###MySQL SQL语句
+####Top
+```
+SELECT * FROM user 
+WHERE department = "IT" 
+LIMIT 1;
+```
+
+####事务
+```
+BEGIN;
+
+SELECT * FROM user 
+WHERE department = "IT" 
+FOR UPDATE
+LIMIT 1;
+
+UPDATE user SET user_name = "Jobs" WHERE user_id = ? ;
+ 
+COMMIT;
+```
+
+###MySQL中的锁
+[MySQL锁，传送门](http://hedengcheng.com/?p=771#_Toc374698311)
+
+
+
 
 -以上-
