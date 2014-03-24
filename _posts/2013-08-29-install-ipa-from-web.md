@@ -33,9 +33,12 @@ meta: ture
 [app.plist 下载地址](http://pan.baidu.com/share/link?shareid=698052472&uk=2885859734)
 
 ---
-2014-01-21
+* 2014-01-21  
 iOS7 如此安装会留下一个久的空壳App，无法删除（若要删除要恢复出厂设置，2333）。 iOS7以下没有这个问题。推测是由于修改.plist的bundleID导致iOS设备没有识别到新的bundleID，新建一个.plist文件就可以了。
 [OS传送门](http://stackoverflow.com/questions/19423742/installing-in-house-apps-stuck-looping-on-ios-7)。
+
+* 2014-03-24  
+[iOS7.1下需要https部署的解决方案](http://beyondvincent.com/blog/2014/03/17/five-tips-for-using-self-signed-ssl-certificates-with-ios/)
   
 
 「以上」
