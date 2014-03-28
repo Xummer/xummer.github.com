@@ -144,4 +144,47 @@ ImportError: dlopen(/Library/Frameworks/Python.framework/Versions/2.7/lib/python
 $ sudo ln -s /usr/local/mysql/lib/libmysqlclient.18.dylib /usr/lib/libmysqlclient.18.dylib
 ```
 
+###4.Debian上遇到的问题
+首先是`mysql_config`找不到，需要安装`libmysqlclient15-dev`
+
+```
+sudo apt-get install libmysqlclient15-dev
+```
+
+```
+sudo dpkg -L libmysqlclient-dev|grep config #查看libmysqlclient-dev包下的带有config的文件
+```
+之后是报这个错
+
+```
+...
+running build_ext
+building '_mysql' extension
+creating build/temp.linux-i686-2.7
+gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fPIC -Dversion_info=(1,2,4,'final',1) -D__version__=1.2.4 -I/usr/include/mysql -I/usr/include/python2.7 -c _mysql.c -o build/temp.linux-i686-2.7/_mysql.o -DBIG_JOINS=1 -fno-strict-aliasing -g
+_mysql.c:29:20: fatal error: Python.h: No such file or directory
+compilation terminated.
+error: command 'gcc' failed with exit status 1
+```
+
+怀疑是`python-dev`未安装，[SO](http://stackoverflow.com/questions/7475223/mysql-config-not-found-when-installing-mysqldb-python-interface)
+
+```
+sudo apt-get install python-dev 
+```
+
+安装完后执行
+
+```
+sudo python setup.py install  
+```
+发现还真是这个问题，Nice!
+
+```
+...
+Installed /usr/local/lib/python2.7/dist-packages/MySQL_python-1.2.4-py2.7-linux-i686.egg
+Processing dependencies for MySQL-python==1.2.4
+Finished processing dependencies for MySQL-python==1.2.4
+```
+
 -以上-
