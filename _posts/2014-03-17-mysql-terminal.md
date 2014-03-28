@@ -34,7 +34,7 @@ which mysql
 
 ###连接MySQL
 ```
-$ mysql -u[MySQL用户名] -p[MySQL密码]
+$ mysql -u[MySQL用户名] -p[MySQL密码] -h[ip 或 域名] -P[端口] -D[数据库名]
 ```
 ```
 $ mysql -uroot -pmysql
