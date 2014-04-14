@@ -13,7 +13,7 @@ meta: ture
 ##CFString​Transform
 最近看[NSHipster](http://nshipster.cn/cfstringtransform/)发现有个么一个`CFString​Transform`, 可以用于转换拼音。已经集成在` Core Foundation `里了(`coreFoundation -> CFString.h`)。大量的麻烦的事，Apple已经帮我们做好了，而且更为优雅，没有上面提到的那些问题。
 
-```
+```objc
 Boolean CFStringTransform(
 	CFMutableStringRef string, 
 	CFRange *range, 
@@ -30,7 +30,7 @@ Boolean CFStringTransform(
 
 transform具体可以参看[Apple文档](https://developer.apple.com/library/mac/documentation/corefoundation/Reference/CFMutableStringRef/Reference/reference.html#jumpTo_22)，贴下`CFString.h`里的 
 
-```
+```objc
 /* Transform identifiers for CFStringTransform()
 */
 CF_EXPORT const CFStringRef kCFStringTransformStripCombiningMarks;
@@ -66,7 +66,7 @@ kCFStringTransformMandarinLatin		| 中文		      | zhōng wén
 
 例子  
 
-```
+```objc
 NSMutableString *str = [@"恶魔之魂" mutableCopy];
 CFMutableStringRef cfstr = (__bridge CFMutableStringRef)(str);
 //CFRange strRange = CFRangeMake(0, str.length); //传 |Null| 表示所有都转换
