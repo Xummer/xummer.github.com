@@ -4,6 +4,7 @@
 
 name: Xummer
 author: Xummer
+production_url: xummer26.com
 # pygments: true
 permalink: /blog/:title.html
 paginate: 10
