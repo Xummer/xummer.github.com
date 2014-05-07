@@ -7,6 +7,15 @@ meta: ture
 
 终于解决`MySQLdb`模块的安装了，坑了我快2天了。好吧，又坑了一天（0317）。'Python MySQLdb'各种坑，google后发现被坑的人不在少数，跨平台也不是这么好跨的。
 
+###0.Download不能
+这状态持续了快1小时都没down好，天朝的GFW？
+
+```
+Downloading http://pypi.python.org/packages/source/d/distribute/distribute-0.6.28.tar.gz
+```
+
+直接下`http://pypi.python.org/packages/source/d/distribute/distribute-0.6.28.tar.gz`丢到`setup.py`同级目录下，再执行`sudo python setup.py install`直接跳过下载。
+
 ###1.MAMP的MySQL不支持
 
 [MAMP](http://www.mamp.info/)一款Mac上功能强大的App，直接集成了apache-php-mysql，省去了安装的麻烦。MAMP pro 有14天试用期，MAMP是免费的。  
@@ -90,13 +99,8 @@ Mac mini一直报错
 clang: error: unknown argument: '-mno-fused-madd' [-Wunused-command-line-argument-hard-error-in-future]
 ```
 
-除了换cc这种脏的做法，暂时无解。
 
-下面的两种方法，都无法解决。
-
-```
-$ ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future python setup.py install
-```
+尝试下面这种方法，未解决。
 
 ```
 $ export CFLAGS=-Qunused-arguments
@@ -104,6 +108,14 @@ $ export CPPFLAGS=-Qunused-arguments
 ```
 ![](../images/blog-images/2014-03-15/so_clang5.1.png)
 
+后来发现了这个, 万能的[SO](http://stackoverflow.com/questions/22312583/cant-install-mysql-gem-on-os-x)
+
+![](../images/blog-images/2014-03-15/so_clang5.1_2.png)
+
+```
+$ sudo ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future python setup.py install
+```
+搞定
 
 
 ###3.dylib未找到
@@ -142,6 +154,49 @@ ImportError: dlopen(/Library/Frameworks/Python.framework/Versions/2.7/lib/python
 
 ```
 $ sudo ln -s /usr/local/mysql/lib/libmysqlclient.18.dylib /usr/lib/libmysqlclient.18.dylib
+```
+
+###4.Debian上遇到的问题
+首先是`mysql_config`找不到,没装developtools,需要安装`libmysqlclient15-dev`
+
+```
+$ sudo apt-get install libmysqlclient15-dev
+```
+
+```
+$ sudo dpkg -L libmysqlclient-dev|grep config #查看libmysqlclient-dev包下的带有config的文件
+```
+之后是报这个错
+
+```
+...
+running build_ext
+building '_mysql' extension
+creating build/temp.linux-i686-2.7
+gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fPIC -Dversion_info=(1,2,4,'final',1) -D__version__=1.2.4 -I/usr/include/mysql -I/usr/include/python2.7 -c _mysql.c -o build/temp.linux-i686-2.7/_mysql.o -DBIG_JOINS=1 -fno-strict-aliasing -g
+_mysql.c:29:20: fatal error: Python.h: No such file or directory
+compilation terminated.
+error: command 'gcc' failed with exit status 1
+```
+
+怀疑是`python-dev`未安装，[SO](http://stackoverflow.com/questions/7475223/mysql-config-not-found-when-installing-mysqldb-python-interface)
+
+```
+$ sudo apt-get install python-dev 
+```
+
+安装完后执行
+
+```
+$ sudo python setup.py install  
+```
+发现还真是这个问题，Nice!
+
+```
+...
+Installed /usr/local/lib/python2.7/dist-packages/MySQL_python-1.2.4-py2.7-linux-i686.egg
+Processing dependencies for MySQL-python==1.2.4
+Finished processing dependencies for MySQL-python==1.2.4
 ```
 
 -以上-

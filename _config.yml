@@ -4,6 +4,7 @@
 
 name: Xummer
 author: Xummer
+production_url: xummer26.com
 # pygments: true
 permalink: /blog/:title.html
 paginate: 10
@@ -13,9 +14,13 @@ paginate_path: /page/:num
 #         Jekyll         #
 # ---------------------- #
 
-safe: true
+safe: trua
 markdown: redcarpet
 exclude: ['Gemfile', 'Gemfile.lock']
+
+redcarpet:
+  extensions: ['no_intra_emphasis', 'fenced_code_blocks', 'tables']
+  render_options:
 
 # ---------------------- #
 #      Compile Sass      #

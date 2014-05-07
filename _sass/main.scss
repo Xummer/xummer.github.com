@@ -4,6 +4,7 @@
 
 $line-height-half: $font-size-base * $line-height-base / 2;
 $page-width: 780px;
+$table-border-color: #e1e1e8;
 
 @mixin title-style-size($size) {
 	font: {
@@ -80,6 +81,25 @@ blockquote {
 	padding: 0 15px;
 	border-left: 4px solid #ddd;
 	color: #777;
+}
+
+table {
+    border-right:1px solid $table-border-color;
+    border-bottom:1px solid $table-border-color;
+
+    th {
+    	padding: 12px 15px;
+    	text-align:center;
+    	border-left:1px solid $table-border-color;
+    	border-top:1px solid $table-border-color;
+    }
+
+    td {
+    	padding: 12px 15px;
+    	text-align: left;
+    	border-left: 1px solid $table-border-color;
+    	border-top: 1px solid $table-border-color;
+    }
 }
 
 .home-title {
