@@ -4,6 +4,16 @@ title: UIImagePickerController iOS7 状态栏颜色
 date: 2014-05-07     T
 meta: ture
 ---
+需要自定义推出的`UIImagePickerController`的导航栏，但是推出的后的StatusBar一直是深色的。
+
+#### 默认风格
+![](https://farm8.staticflickr.com/7347/13959527109_259ba87b75_n.jpg)
+
+#### 自定义后出现的效果
+![](https://farm8.staticflickr.com/7384/14166265013_de3af7ff77_n.jpg)
+
+#### 最终需要的效果
+![](https://farm3.staticflickr.com/2924/14146382834_273e896442_n.jpg)
 
 iOS7 的 SDK 中 `UIViewController`多了2个控制 StatusBar 的方法，
 
