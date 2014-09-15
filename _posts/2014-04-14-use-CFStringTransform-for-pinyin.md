@@ -11,7 +11,7 @@ meta: ture
 * 无法正常显示声调，比如， 我 wo(3)
 
 ##CFString​Transform
-最近看[NSHipster](http://nshipster.cn/cfstringtransform/)发现有个么一个`CFString​Transform`, 可以用于转换拼音。已经集成在` Core Foundation `里了(`coreFoundation -> CFString.h`)。大量的麻烦的事，Apple已经帮我们做好了，而且更为优雅，没有上面提到的那些问题。
+最近看[NSHipster](http://nshipster.cn/cfstringtransform/)发现有这么一个`CFString​Transform`, 可以用于转换拼音。已经集成在` Core Foundation `里了(`coreFoundation -> CFString.h`)。大量的麻烦的事，Apple已经帮我们做好了，而且更为优雅，没有上面提到的那些问题(还是无法区分多音字，如 “视觉 睡觉” -> "shì jué shuì jué")。
 
 ```objc
 Boolean CFStringTransform(
