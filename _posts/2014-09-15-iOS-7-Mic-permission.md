@@ -18,7 +18,8 @@ Flickr
   
   
 微信  
-![](https://farm6.staticflickr.com/5575/15224997626_1b002a2216.jpg)
+![](https://farm6.staticflickr.com/5575/15224997626_1b002a2216.jpg)   
+
 这会影响某些操作，如实现如微信的 `Hold to Talk` 时，在iOS7以上第一次只能做权限请求，第二次才能开始真正的 `Hold to Talk`。
 
 ### Mic权限相关代码
@@ -35,7 +36,7 @@ typedef void (^PermissionBlock)(BOOL granted);
 
 ### 解决方法
 
-贴上代码 在检查获取到权限后调用Block
+贴上代码：在检查获取到权限后调用Block
 
 ```
 + (void)checkMicrophonePermissionAndRunAction:(void (^)(void))action {
@@ -76,7 +77,7 @@ typedef void (^PermissionBlock)(BOOL granted);
 ```
 
 在代码【1】处   
-每次调用Mic都需要检查没法判断是否是 `UIAlertView` 点OK后执行，还是原来已经 granted, 所以需要在 Block 里做点文章，去判断 `Hold to talk` 的 button 是否已经被放开。
+每次调用Mic都需要检查权限，没法判断是否是 `UIAlertView` 点OK后执行，还是原来已经 granted, 所以需要在执行的 Block 里做点文章，去判断 `Hold to talk` 的 button 是否已经被放开。
 
 ```
 - (void)onStartRecord:(id)sender {
