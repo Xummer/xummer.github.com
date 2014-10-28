@@ -29,8 +29,9 @@ UrlSchema | 是否有效
 
 ## 解决方法
 
-之前没有公开`tel`这个url schema, 现在已经有了[Apple文档](https://developer.apple.com/library/ios/featuredarticles/iPhoneURLScheme_Reference/PhoneLinks/PhoneLinks.html) ，主要改变有以下两点。
-1. 用`tel:`代替之前的`tel://` （原来的加双斜杠没有问题，还是按照文档上写的）
+之前没有公开`tel`这个url schema, 现在已经有了[Apple文档](https://developer.apple.com/library/ios/featuredarticles/iPhoneURLScheme_Reference/PhoneLinks/PhoneLinks.html) ，主要改变有以下两点。  
+
+1. 用`tel:`代替之前的`tel://` （原来的加双斜杠没有问题，还是按照文档上写的）   
 2. 用`NSString`的[stringByAddingPercentEscapesUsingEncoding](https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/index.html#//apple_ref/occ/instm/NSString/stringByAddingPercentEscapesUsingEncoding:)规则化电话格式
 
 ```
