@@ -28,8 +28,8 @@ key = value ;
 
 例子
 ```
-@“Name” = @“名称”;
-CFBundleDisplayName = @“啊呸呸”;
+@"Name" = @"名称";
+CFBundleDisplayName = @"啊呸呸";
 ```
 
 ## infoPlist.strings
