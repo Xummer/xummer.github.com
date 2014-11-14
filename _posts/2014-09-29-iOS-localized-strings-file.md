@@ -21,6 +21,23 @@ InfoPlist.strings | App系统显示层面上的本地化的（如App 名字）
 Localizable.strings | 代码中用到的字符串用宏`NSLocalizedString(key, comment)`做本地化默认`.strings`文件
 xxx.strings | 自定义本地化文件，用宏`NSLocalizedStringFromTable(key, tbl, comment)`来指定`.strings`文件的来源
 
+## .strings格式
+```
+key = value ; 
+```
+
+例子
+```
+@“Name” = @“名称”;
+CFBundleDisplayName = @“啊呸呸”;
+```
+
+## infoPlist.strings
+正如其名字描述的，对 xxInfo.plist 的中描述的本地化。
+
+- [Cocoa Keys](https://developer.apple.com/library/mac/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html)
+- [Core Foundation Keys](https://developer.apple.com/library/mac/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/TP40009249-SW1)
+
 ## 宏NSLocalizedString
 ```
 #define NSLocalizedString(key, comment) \
