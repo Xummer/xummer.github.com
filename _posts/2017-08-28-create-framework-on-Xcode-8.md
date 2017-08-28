@@ -1,6 +1,6 @@
 ---
 layout: post
-title: create framework on Xcode 8
+title: 在 Xcode 8 上创建 iOS Framework
 date: 2017-08-28     T
 meta: ture
 ---
