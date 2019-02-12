@@ -11,7 +11,7 @@ meta: ture
 3. 如何不在符号表文件中显示代码文件的具体路径;
 
 ## 创建 Framework
-主要参考自[Build a custom universal framework on iOS swift](https://medium.com/swiftindia/build-a-custom-universal-framework-on-ios-swift-549c084de7c8)
+主要参考自 [Build a custom universal framework on iOS swift](https://medium.com/swiftindia/build-a-custom-universal-framework-on-ios-swift-549c084de7c8)
 
 ### 1.创建 Cocoa Framework
 Xcode 中 File → New → Project

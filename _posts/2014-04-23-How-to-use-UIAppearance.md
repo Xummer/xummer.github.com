@@ -1,20 +1,20 @@
 ---
 layout: post
-title: UIAppearance的使用
+title: UIAppearance 的使用
 date: 2014-04-23     T
 meta: ture
 ---
 ## UIAppearance
 
-iOS 5以后加了`UIAppearance`来控制UI的全局的显示`+ appearance` 或某一个类中的显示`+ appearanceWhenContainedIn:`.
+iOS 5 以后加了 `UIAppearance` 来控制 UI 的全局的显示 `+ appearance` 或某一个类中的显示 `+ appearanceWhenContainedIn:`.
 
-`UIAppearance`只对有`UI_APPEARANCE_SELECTOR `标示的`property`有效，如`UINavigationBar.h => tintColor`
+`UIAppearance` 只对有 `UI_APPEARANCE_SELECTOR ` 标示的 `property` 有效，如 `UINavigationBar.h => tintColor`
 
 ```
 @property(nonatomic,retain) UIColor *barTintColor NS_AVAILABLE_IOS(7_0) UI_APPEARANCE_SELECTOR; 
 ```
 
-Apple提供的方法
+Apple 提供的方法
 
 ```
 + appearance
@@ -29,7 +29,7 @@ Apple提供的方法
 
 ### 没有 UI_APPEARANCE_SELECTOR 的解决方法
 
-创建Category, 并添加带有`UI_APPEARANCE_SELECTOR `标示的property，虽然Category不能通过正常(这里不说runtime)加变量，但是这边只是用了`setter`方法，并没有实际用到这个property。
+创建 Category, 并添加带有 `UI_APPEARANCE_SELECTOR ` 标示的 property，虽然 Category 不能通过正常(这里不说 runtime)加变量，但是这边只是用了 `setter` 方法，并没有实际用到这个 property。
 
 ```
 // ====== .h ======
@@ -60,7 +60,7 @@ Apple提供的方法
 [[UILabel appearance] setLabelBackgroundColor:[UIColor clearColor]];
 ```
 
-###参考资料
+### 参考资料
 * [NSHipster UIAppearance](http://nshipster.com/uiappearance/)
 * [统一设计，iOS6也玩扁平化](http://esoftmobile.com/2014/01/14/build-ios6-ios7-apps/)
 * [SO - iOS: Using UIAppearance to define custom UITableViewCell color](http://stackoverflow.com/questions/8316543/ios-using-uiappearance-to-define-custom-uitableviewcell-color)

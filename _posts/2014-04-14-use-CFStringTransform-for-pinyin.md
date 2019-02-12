@@ -1,17 +1,17 @@
 ---
 layout: post
-title: 用CFStringTransform实现汉字转拼音
+title: 用 CFStringTransform 实现汉字转拼音
 date: 2014-04-14     T
 meta: ture
 ---
 
-很久之前，有做过iOS上的String转拼音，下了别人写的一个类库（就2文件` .h `和` .m `，但里面有几千行的代码），是把所有对应拼音的的文字输入到一个`NSDictionary`里，然后再匹配查找。输入是一个很大的工作量，然后还有几个没解决的问题  
+很久之前，有做过 iOS 上的 String 转拼音，下了别人写的一个类库（就 2 文件 ` .h ` 和 ` .m `，但里面有几千行的代码），是把所有对应拼音的的文字输入到一个 `NSDictionary` 里，然后再匹配查找。输入是一个很大的工作量，然后还有几个没解决的问题  
 
-* 无法区分多音字，一般找到第一个匹配的就`return`了,
+* 无法区分多音字，一般找到第一个匹配的就 `return` 了,
 * 无法正常显示声调，比如， 我 wo(3)
 
-##CFString​Transform
-最近看[NSHipster](http://nshipster.cn/cfstringtransform/)发现有这么一个`CFString​Transform`, 可以用于转换拼音。已经集成在` Core Foundation `里了(`coreFoundation -> CFString.h`)。大量的麻烦的事，Apple已经帮我们做好了，而且更为优雅，没有上面提到的那些问题(还是无法区分多音字，如 “视觉 睡觉” -> "shì jué shuì jué")。
+## CFString​Transform
+最近看 [NSHipster](http://nshipster.cn/cfstringtransform/) 发现有这么一个 `CFString​Transform`, 可以用于转换拼音。已经集成在` Core Foundation `里了(`coreFoundation -> CFString.h`)。大量的麻烦的事，Apple 已经帮我们做好了，而且更为优雅，没有上面提到的那些问题(还是无法区分多音字，如 “视觉 睡觉” -> "shì jué shuì jué")。
 
 ```objc
 Boolean CFStringTransform(
@@ -28,7 +28,7 @@ Boolean CFStringTransform(
 * reverse: 如有需要，是否返回反转过的变换。
 
 
-transform具体可以参看[Apple文档](https://developer.apple.com/library/mac/documentation/corefoundation/Reference/CFMutableStringRef/Reference/reference.html#jumpTo_22)，贴下`CFString.h`里的 
+transform 具体可以参看 [Apple文档](https://developer.apple.com/library/mac/documentation/corefoundation/Reference/CFMutableStringRef/Reference/reference.html#jumpTo_22)，贴下 `CFString.h` 里的 
 
 ```objc
 /* Transform identifiers for CFStringTransform()

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 使用UITableView右侧索引
+title: 使用 UITableView 右侧索引
 date: 2014-04-25     T
 meta: ture
 ---
@@ -15,11 +15,11 @@ UITableView 自带索引，一直和他打交道，但却一直没用过。
 
 ### 1. 实现TableView, （过于简单，略过）
 
-### 2. 创建两个`property `
+### 2. 创建两个 `property `
 
 ```
 @property (strong, nonatomic) NSArray *contacts;    // 存放排序后的内容
-@property (strong, nonatomic) NSArray *indexList;   //  存放右侧索引
+@property (strong, nonatomic) NSArray *indexList;   // 存放右侧索引
 ```
 
 ### 3. 创建联系人的数据模型
@@ -47,7 +47,7 @@ UITableView 自带索引，一直和他打交道，但却一直没用过。
 
 ```
 
-### 4.  重写contacts的setter方法
+### 4.  重写 contacts 的 setter 方法
 
 ```
 - (void)setContacts:(NSArray *)objects {
@@ -55,7 +55,7 @@ UITableView 自带索引，一直和他打交道，但却一直没用过。
     [_tableView reloadData];
 }
 ```
-#### 关键是用`UILocalizedIndexedCollation`来做分组和排序
+#### 关键是用 `UILocalizedIndexedCollation` 来做分组和排序
 
 ```
 - (NSArray *)arrayForSections:(NSArray *)objects {
@@ -112,7 +112,7 @@ UITableView 自带索引，一直和他打交道，但却一直没用过。
 
 ```
 
-#### `existTitleSections `（也就是赋值后的_contacts）的结构
+#### `existTitleSections `（也就是赋值后的 _contacts）的结构
 
 ```
 @[
@@ -127,7 +127,7 @@ UITableView 自带索引，一直和他打交道，但却一直没用过。
 	], …
 ]
 ```
-#### `indexList`结构
+#### `indexList` 结构
 
 ```
 <__NSArrayM 0x95265f0>(
@@ -144,7 +144,7 @@ Z,
 )
 ```
 
-### 5. 实现UITableViewDataSource
+### 5. 实现 UITableViewDataSource
 
 ```
 #pragma mark - UITableViewDataSource

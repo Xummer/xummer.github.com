@@ -1,21 +1,21 @@
 ---
 layout: post
-title: 获取iOS打开App的方式
+title: 获取 iOS 打开 App 的方式
 date: 2013-11-06     T
 meta: ture
 ---
 
-iOS中打开App的方法并不是只有点击App图标这一种，所以下面来看下具体有哪些方法，先上[官方文档LaunchOptionsKeys](https://developer.apple.com/library/ios/documentation/uikit/reference/UIApplicationDelegate_Protocol/Reference/Reference.html)
+iOS 中打开 App 的方法并不是只有点击 App 图标这一种，所以下面来看下具体有哪些方法，先上[官方文档 LaunchOptionsKeys](https://developer.apple.com/library/ios/documentation/uikit/reference/UIApplicationDelegate_Protocol/Reference/Reference.html)
 
 ###打开方式分类
 * [点击桌面图标打开](#点击桌面图标打开)
-* [通过openurl打开](#通过openurl打开)
+* [通过 openurl 打开](#通过openurl打开)
 * [点击远程推送（remotenotification）打开](#点击远程推送（remotenotification）打开)
 * [通过本地推送（localnotification）打开](#通过本地推送（localnotification）打开)
-* [通过其他程序的UIDocumenInteractionController点击后打开](#通过其他程序的UIDocumenInteractionController点击后打开)
+* [通过其他程序的 UIDocumenInteractionController 点击后打开](#通过其他程序的UIDocumenInteractionController点击后打开)
 * [其他方式](#其他方式)
 
-###如何在程序中获取到打开方式
+### 如何在程序中获取到打开方式
 
 ```objc
 // main.m
@@ -29,31 +29,31 @@ int main(int argc, char * argv[])
 }
 ```
 
-首先得先说下程序的iOS程序的启动流程,每个c程序都是以`main`作为程序的程序的入口，objective-c也不例外。在`main`函数中调用了`UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));`将程序的控制权交给`AppDelegate`，iOS生命周期交给`AppDelegate`来控制。  
+首先得先说下程序的 iOS 程序的启动流程,每个 c 程序都是以 `main` 作为程序的程序的入口，objective-c 也不例外。在 `main` 函数中调用了 `UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));` 将程序的控制权交给 `AppDelegate`，iOS 生命周期交给 `AppDelegate` 来控制。  
 
 具体看下图（有图有真相）。
 ![](../images/blog-images/2013-11-06/lifecycle.jpeg )
 
-几乎每次启动都会调用`application: didFinishLaunchingWithOptions:`(PS:有例外，比如App已经在后台，此时再启动App时是不会调用的。)
+几乎每次启动都会调用 `application: didFinishLaunchingWithOptions:`(PS: 有例外，比如App已经在后台，此时再启动App时是不会调用的。)
 
-可以通过`launchOptions`来判断具体是哪种方式启动
+可以通过 `launchOptions` 来判断具体是哪种方式启动
 
 ```objc
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 ```
 
-###<a id="点击桌面图标打开"></a>点击桌面图标打开
+### <a id="点击桌面图标打开"></a>点击桌面图标打开
 
-`launchOptions`返回为空。
+`launchOptions` 返回为空。
 
 ```
 Sep  9 10:58:12 Xummers-iPhone HandleOpenUrlDemo[50430] <Warning>: launchOptions (null) 
 ```
 
-###<a id="通过openurl打开"></a>通过openurl打开
+### <a id="通过openurl打开"></a>通过 openurl 打开
 
-`UIApplicationLaunchOptionsSourceApplicationKey`为调用`openurl`打开的源程序的bundle id。   
-`UIApplicationLaunchOptionsURLKey` 为`openurl`所传的参数，如果app有多个url schema时可以在这里做判断。
+`UIApplicationLaunchOptionsSourceApplicationKey` 为调用 `openurl` 打开的源程序的 bundle id。   
+`UIApplicationLaunchOptionsURLKey` 为 `openurl` 所传的参数，如果 app 有多个url schema 时可以在这里做判断。
 
 ```
 launchOptions {
@@ -64,8 +64,8 @@ launchOptions {
 
 ![](../images/blog-images/2013-11-06/urlschema.png )
 
-###<a id="点击远程推送（remotenotification）打开"></a>点击远程推送（remotenotification）打开
-`UIApplicationLaunchOptionsRemoteNotificationKey` 直接是一个推送的json内容。
+### <a id="点击远程推送（remotenotification）打开"></a>点击远程推送（remotenotification）打开
+`UIApplicationLaunchOptionsRemoteNotificationKey` 直接是一个推送的 json 内容。
 
 ```
 Sep  9 10:49:51 Xummers-iPhone HandleOpenUrlDemo[50363] <Warning>: launchOptions {
@@ -78,8 +78,8 @@ Sep  9 10:49:51 Xummers-iPhone HandleOpenUrlDemo[50363] <Warning>: launchOptions
         };
      }
 ```
-###<a id="通过本地推送（localnotification）打开"></a>通过本地推送（localnotification）打开
-`UIApplicationLaunchOptionsLocalNotificationKey`为本地推送的内容。
+### <a id="通过本地推送（localnotification）打开"></a>通过本地推送（localnotification）打开
+`UIApplicationLaunchOptionsLocalNotificationKey` 为本地推送的内容。
 
 ```
 launchOptions {
@@ -87,8 +87,8 @@ launchOptions {
      }
 ```
 
-###<a id="通过其他程序的UIDocumenInteractionController点击后打开"></a>通过其他程序的UIDocumenInteractionController点击后打开
-`UIApplicationLaunchOptionsSourceApplicationKey`为打开的源程序的bundle id。
+### <a id="通过其他程序的UIDocumenInteractionController点击后打开"></a>通过其他程序的 UIDocumenInteractionController 点击后打开
+`UIApplicationLaunchOptionsSourceApplicationKey` 为打开的源程序的 bundle id。
 `UIApplicationLaunchOptionsURLKey` 需要被打开具体文件路径
 
 ```
@@ -99,9 +99,9 @@ launchOptions {
 ```
 
 ![](../images/blog-images/2013-11-06/uidocument.png)
-###<a id="其他方式"></a>其他方式
-其他key还有`UIApplicationLaunchOptionsAnnotationKey`,`UIApplicationLaunchOptionsLocationKey`,
+### <a id="其他方式"></a>其他方式
+其他 key 还有`UIApplicationLaunchOptionsAnnotationKey`,`UIApplicationLaunchOptionsLocationKey`,
 `UIApplicationLaunchOptionsNewsstandDownloadsKey`。  
-因为没有用到过，所以想知道这些key的内容还是看[Apple的文档](https://developer.apple.com/library/ios/documentation/uikit/reference/UIApplicationDelegate_Protocol/Reference/Reference.html)吧。
+因为没有用到过，所以想知道这些key的内容还是看 [Apple的文档](https://developer.apple.com/library/ios/documentation/uikit/reference/UIApplicationDelegate_Protocol/Reference/Reference.html)吧。
 
 -以上-

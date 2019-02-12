@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "ios系统相册选择视频后的处理"
+title: "iOS 系统相册选择视频后的处理"
 date: 2012-11-07 21:58
 meta: true
 ---
-最近用GPUImage这个开源类库给视频加滤镜效果，之中有一个从系统相册选择视频的处理的过程。
+最近用 `GPUImage` 这个开源类库给视频加滤镜效果，之中有一个从系统相册选择视频的处理的过程。
 
 调用系统相册（别忘了加这两个协议``<UINavigationControllerDelegate,UIImagePickerControllerDelegate >``）
   

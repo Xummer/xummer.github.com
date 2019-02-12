@@ -20,7 +20,8 @@ FrameBuffer 中存放的是你在屏幕上看到的所有像素的颜色值和�
 
 ### 罪魁祸首 ？掉帧
 
-> 如果在一个 VSync 时间内，CPU 或者 GPU 没有完成内容提交，则那一帧就会被丢弃，等待下一次机会再显示，而这时显示屏会保留之前的内容不变。		 —  ibireme 
+> 如果在一个 VSync 时间内，CPU 或者 GPU 没有完成内容提交，则那一帧就会被丢弃，等待下一次机会再显示，而这时显示屏会保留之前的内容不变。<br>
+>		 —  ibireme 
 
 再借一张(逃
 ![](http://blog.ibireme.com/wp-content/uploads/2015/11/ios_frame_drop.png)
@@ -81,10 +82,10 @@ AutoLayout 根据给定的约束去计算 frame 再设置，和人为的计算�
 >3. 生成UIImageView，把图像数据赋值给UIImageView
 >4. 如果图像数据为未解码的PNG/JPG，解码为位图数据
 >5. CATransaction捕获到UIImageView layer树的变化
->6. 主线程Runloop提交CATransaction，开始进行图像渲染
-> 6.1 如果数据没有字节对齐，Core Animation会再拷贝一份数据，进行字节对齐。
-> 6.2 GPU处理位图数据，进行渲染。
->     -- bang
+>6. 主线程Runloop提交CATransaction，开始进行图像渲染 <br>
+>   6.1 如果数据没有字节对齐，Core Animation会再拷贝一份数据，进行字节对齐。<br>
+>   6.2 GPU处理位图数据，进行渲染。<br>
+>       -- bang
 
 #### 视图叠加
 ##### alpha ＝ 1
@@ -146,14 +147,14 @@ layer.cornerRadius = 5.0f;
 
 ![](http://ww3.sinaimg.cn/large/006tNbRwgw1f61kowj78qj309r09ljsj.jpg)
 
-1. 由 A 反向蒙板生成 B
-2. 以 B 为蒙板生成圆角 C
-3. 将 D 和 C 绘制生成一张带边框的图片
-4. 将处理后图片缓存起来
+1. 由 A 反向蒙板生成 B;
+2. 以 B 为蒙板生成圆角 C;
+3. 将 D 和 C 绘制生成一张带边框的图片;
+4. 将处理后图片缓存起来;
 
 ##### 进一步优化
 ###### 1.异步绘制
-AppStore 在为加载完时仍会卡顿，未实现异步绘制。
+AppStore 在未加载完时仍会卡顿，未实现异步绘制。
 应为 CoreGraphic 线程安全，异步绘制也较容易实现。
 
 ```
@@ -222,11 +223,11 @@ decelerationRate 0.899999976158; // 0x3f666666
 ![](http://ww2.sinaimg.cn/large/006tNbRwgw1f5y7ujtvr4j30tu042ta1.jpg)
 
 ### 另外的优化点
-1. 将计算布局的结果保存起来避免同样的内容多次计算
-2. 减少视图层级，可绘制成1张图片显示
-3. 将没有点击事件的 `UIView` 换成 `CALayer` 实现
-4. 减少设置视图的 `frame/bounds/transform`
-5. 去 Storyboard ，性能敏感界面直接代码创建 View 对象
+1. 将计算布局的结果保存起来避免同样的内容多次计算;
+2. 减少视图层级，可绘制成1张图片显示;
+3. 将没有点击事件的 `UIView` 换成 `CALayer` 实现;
+4. 减少设置视图的 `frame/bounds/transform`;
+5. 去 Storyboard ，性能敏感界面直接代码创建 View 对象;
 
 ### 参考文章
 - [iOS 保持界面流畅的技巧 - ibireme](http://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/)

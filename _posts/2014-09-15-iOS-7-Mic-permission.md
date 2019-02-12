@@ -7,7 +7,7 @@ meta: ture
 
 ### 权限问题
 
-在iOS 6以后对应用使用一些系统功能做了权限控制，如获取位置，获取相册，调用mic...
+在 iOS 6 以后  对应用使用一些系统功能做了权限控制，如获取位置，获取相册，调用 mic...
 
 所以在使用这些功能上需要先向用户请求权限，等用户同意后才能继续操作。
 
@@ -22,7 +22,7 @@ Flickr
 
 这会影响某些操作，如实现如微信的 `Hold to Talk` 时，在iOS7以上第一次只能做权限请求，第二次才能开始真正的 `Hold to Talk`。
 
-### Mic权限相关代码
+### Mic 权限相关代码
 ```
 /* Checks to see if calling process has permission to record audio.  The 'response' block will be called
  immediately if permission has already been granted or denied.  Otherwise, it presents a dialog to notify
@@ -36,7 +36,7 @@ typedef void (^PermissionBlock)(BOOL granted);
 
 ### 解决方法
 
-贴上代码：在检查获取到权限后调用Block
+贴上代码：在检查获取到权限后调用 Block
 
 ```
 + (void)checkMicrophonePermissionAndRunAction:(void (^)(void))action {
